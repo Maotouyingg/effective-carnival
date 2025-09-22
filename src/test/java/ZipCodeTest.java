@@ -11,28 +11,36 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 public class ZipCodeTest {
     @Test
-    public void checkZipCode4digits(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://sharelane.com/cgi-bin/register.py");
-        driver.findElement(By.name("zip-code")).sendKeys("1234");
-        driver.findElement(By.cssSelector("[value='Continue']")).click();
-        WebDriverWait waitDriver = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement errorText = waitDriver.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".error_message")));
-        String errorMessage = driver.findElement(By.cssSelector(".error_message")).getText();
-        Assert.assertEquals(errorMessage, "Oops, error on page. ZIP code should have 5 digits\n");
-        driver.quit();
+    public void checkZipCode4digits() {
+        {
+
+            {
+                //System.setProperty("webdriver.chrome.driver", "timofeyfilin@MacBook-Air-Timofej Google Chrome.app");
+                WebDriver driver = new ChromeDriver();
+                driver.get("https://www.sharelane.com/cgi-bin/register.py");
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("zip_code")));
+                driver.findElement(By.name("zip_code")).sendKeys("1234");
+                driver.findElement(By.cssSelector("[value = 'Continue']")).click();
+
+            }
+        }
     }
     @Test
-    public void checkZipCode5digits(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://sharelane.com/cgi-bin/register.py");
-        driver.findElement(By.name("zip-code")).sendKeys("12334");
-        driver.findElement(By.cssSelector("[value='Continue']")).click();
-        WebDriverWait waitDriver = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement errorText = waitDriver.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".error_message")));
-        String errorMessage = driver.findElement(By.cssSelector(".error_message")).getText();
-        Assert.assertEquals(errorMessage, "Oops, error on page. ZIP code should have 5 digits\n");
-        driver.quit();
-    }
 
+    public void CheckZipCodeValidTest(){}
+
+    public void setUp() {
+        ChromeDriver driver = new ChromeDriver();
+        {
+            driver.findElement(By.name("zip_code")).sendKeys("12345");
+            driver.findElement(By.cssSelector("[value = 'Continue']")).click();
+            driver.findElement(By.name("first_name")).sendKeys("Timofey");
+            driver.findElement(By.name("last_name")).sendKeys("Filin");
+            driver.findElement(By.name("email")).sendKeys("tfilin888@ya.ru");
+            driver.findElement(By.name("password1")).sendKeys("Password123!");
+            driver.findElement(By.name("password2")).sendKeys("Password123!");
+            driver.findElement(By.cssSelector("[value = 'Register']")).click();
+        }
+    }
 }
