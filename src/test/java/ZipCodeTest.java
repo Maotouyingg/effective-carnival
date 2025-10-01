@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
 
+
 public class ZipCodeTest {
     private WebDriver driver;
     private WebDriverWait wait;
